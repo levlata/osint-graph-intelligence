@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  postgres_dwh:
+    image: postgres:15-alpine
+    container_name: postgres_dwh
+    environment:
+      POSTGRES_USER: quant_user
+      POSTGRES_PASSWORD: crypto_pass123
+      POSTGRES_DB: osint_analytics
+    ports:
+      - "5439:5432" # Открываем порт для Power BI и Python
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql # Автоматически создаст таблицы
+    restart: always
